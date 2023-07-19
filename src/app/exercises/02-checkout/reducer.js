@@ -1,10 +1,14 @@
-import produce from 'immer';
+import produce from "immer";
 
 function reducer(state, action) {
   return produce(state, (draftState) => {
     switch (action.type) {
-      case 'add-item': {
-        const itemIndex = state.findIndex(
+      case "initialize-cart": {
+        return [];
+      }
+
+      case "add-item": {
+        const itemIndex = draftState.findIndex(
           (item) => item.id === action.item.id
         );
 
@@ -20,8 +24,12 @@ function reducer(state, action) {
         return;
       }
 
-      case 'delete-item': {
-        const itemIndex = state.findIndex(
+      case "set-items": {
+        return action.items;
+      }
+
+      case "delete-item": {
+        const itemIndex = draftState.findIndex(
           (item) => item.id === action.item.id
         );
 
